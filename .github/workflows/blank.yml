@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install wget make gawk gcc bc bison flex xorriso libelf-dev libssl-dev -yq
-          sudo bash build.sh
+          sudo bash minimal.sh
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
