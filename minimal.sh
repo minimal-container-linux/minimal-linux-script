@@ -1,9 +1,9 @@
 #!/bin/sh
 set -ex
-KERNEL_VERSION=5.11.6
-BUSYBOX_VERSION=1.33.0
+KERNEL_VERSION=$(wget -O - https://linux-libre.fsfla.org/pub/linux-libre/releases/ | sed "s/.*href=\"//g;s/-gnu.*//g" | grep -e "^[0-9]" | sort -V | tail -n 1)
+BUSYBOX_VERSION=$(wget -O - https://busybox.net/downloads/ | sed "s/.*href=\"//g;s/\".*//g" | grep "^busybox-[0-9]" | grep "bz2$" | sort -V | tail -n 1 | sed "s/busybox-//g;s/.tar.bz2//g")
 SYSLINUX_VERSION=6.03
-wget -O kernel.tar.xz http://kernel.org/pub/linux/kernel/v5.x/linux-${KERNEL_VERSION}.tar.xz
+wget -O kernel.tar.xz http://linux-libre.fsfla.org/pub/linux-libre/releases/${KERNEL_VERSION}-gnu/linux-libre-${KERNEL_VERSION}-gnu.tar.xz
 wget -O busybox.tar.bz2 http://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2
 wget -O syslinux.tar.xz http://kernel.org/pub/linux/utils/boot/syslinux/syslinux-${SYSLINUX_VERSION}.tar.xz
 tar -xvf kernel.tar.xz
